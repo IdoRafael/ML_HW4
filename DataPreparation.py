@@ -217,8 +217,10 @@ def prepare_data():
     train, validate, test = handle_imputation(train, validate, test)
     train, validate, test = handle_type_modification(train, validate, test)
     train, validate, test = handle_scaling(train, validate, test)
-    train, validate, test = handle_right_feature_set(train, validate, test)
+
+    # Use all features for this assignment
+    # train, validate, test = handle_right_feature_set(train, validate, test)
     # train, validate, test = handle_feature_selection(train, validate, test, 15)
 
-    save_features_selected(original_features, train.columns.values)
+    # save_features_selected(original_features, train.columns.values)
     save_as_csv(train, validate, test)
