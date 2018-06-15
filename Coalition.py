@@ -11,7 +11,7 @@ from sklearn.metrics import completeness_score, v_measure_score, homogeneity_sco
 from sklearn.metrics import make_scorer, f1_score, confusion_matrix, accuracy_score
 from sklearn.model_selection import GridSearchCV
 
-from Clustering import get_clusters_labels, get_clusters_sizes_percent
+from Clustering import get_clusters_labels, get_clusters_sizes_percent, get_clusters_distribution
 from DataPreparation import split_label
 from ReadWrite import read_data, df_as_csv
 
@@ -225,13 +225,19 @@ def run_k_means_all_data():
     # X, y = df.drop(['Vote'], axis=1), df['Vote']
     X, y = split_label(df)
 
-    for k in [6,9,10,11,12]:
+    for k in [6, 9, 10, 11, 12]:
         print(k, '=========')
         kmeans = KMeans(n_clusters=k).fit(X)
         d = get_clusters_labels(kmeans, y)
         s = get_clusters_sizes_percent(kmeans)
+        dist = get_clusters_distribution(kmeans, y)
 
         for i, v in d.items():
             print('{:>2} {:>6}%'.format(i, s[i]), v)
+            print('{:>10}'.format('Percent'), np.array(dist[i]))
 
         print('=========')
+
+
+if __name__ == '__main__':
+    run_k_means_all_data()

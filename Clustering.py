@@ -15,6 +15,20 @@ def get_clusters_indices(estimator):
     return d
 
 
+def get_clusters_distribution(estimator, y):
+    d = get_clusters_indices(estimator)
+
+    np_y = np.array(y)
+
+    return collections.OrderedDict(
+        sorted({k: normalize_counter(collections.Counter(np_y[d[k]])) for k in d}.items())
+    )
+
+
+def normalize_counter(c):
+    return [y for _,y in [(i, round(c[i] / sum(c.values()) * 100.0)) for i in c]]
+
+
 def get_clusters_labels(estimator, y):
     d = get_clusters_indices(estimator)
 

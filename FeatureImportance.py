@@ -14,10 +14,13 @@ def normalize(l):
 def plot_feature_ranks(party, ranker, X, y, ranking_method):
     plt.figure()
     plt.title('{} - {}'.format(party, ranking_method))
-    plt.barh(X.columns.values, 100 * normalize(ranker(X, y)))
+    ranks = 100 * normalize(ranker(X, y))
+    plt.barh(X.columns.values, ranks)
     plt.xlabel('Importance %')
     plt.ylabel('Feature')
     plt.show()
+
+    np.array([x for _, x in sorted(zip(ranks, X.columns.values), key=lambda pair: pair[0])])[-k:][::-1]
 
 
 def party_feature_mi(X, y):
