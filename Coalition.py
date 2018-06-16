@@ -22,6 +22,10 @@ def load_prepared_data():
     return (read_data(x) for x in ['train.csv', 'validate.csv', 'test.csv'])
 
 
+def load_unprepared_data():
+    return (read_data(x) for x in ['train_original.csv', 'validate_original.csv', 'test_original.csv'])
+
+
 def test_model(model, name, parameters, train_x, train_y, score):
     cv = 5
 
