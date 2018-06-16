@@ -45,6 +45,20 @@ def get_feature_for_all_parties():
         )
 
 
+def get_feature_for_coalition_opposition():
+    train, validate, test = load_prepared_data()
+    df = pd.concat([train, validate, test])
+    X, y = df.drop(['Vote'], axis=1), df['Vote'].map(lambda x: 0 if x in {'Reds', 'Greys', 'Oranges'} else 1)
+
+    plot_feature_ranks(
+        'Coalition/Opposition',
+        party_feature_mi,
+        X,
+        y,
+        'MI'
+    )
+
+
 def calculate_mean_feature(train, validate, test, f):
     df = pd.concat([train, validate, test]).dropna(subset=[f])
 
