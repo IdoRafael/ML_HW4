@@ -37,12 +37,16 @@ def plot_leading_features(max_args, max_args_abs, coefficients, df):
                       attribute_index_to_name[max_arg_index],
                       coefficients[i][max_arg_index]))
 
-        plt.figure()
-        plt.title('{} most important factors\n(larger (abs) is better)'.format(code_to_name[i]), x=0)
+        plt.figure(figsize=(8,6))
+        plt.subplots_adjust(left=0.4)
+        plt.title('{} most important factors\n(larger (abs) is better)'.format(code_to_name[i]))
         plt.barh(X_test.columns.values, coefficients[i])
-        plt.show()
+        plt.tight_layout()
+
         # commented out saving since we have the graphics
         # plt.savefig('{}_LDA.png'.format(code_to_name[i]))
+
+        plt.show()
         plt.close()
 
 
