@@ -9,12 +9,14 @@ import matplotlib.pyplot as plt
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
-def get_LDA_classifier(X_train, y_train):
+def get_LDA_classifier(X_train, y_train, X_test, y_test):
     # TODO: which solver?
     lda = LinearDiscriminantAnalysis(solver='eigen')
     # TODO: should this be done using CV?
     # X_train_new = lda.fit_transform(X_train, y_train)
     lda.fit(X_train, y_train)
+    score = lda.score(X_test, y_test)
+    print('score for LDA classifier is {}'.format(score))
     return lda
 
 
@@ -30,7 +32,7 @@ def plot_leading_features(max_args, max_args_abs, coefficients, df):
     attribute_index_to_name = dict(enumerate(df.columns.values))
 
     for i, max_arg_index in enumerate(max_args_abs):
-        print('for party {} the most important index was {} with a linear coefficient of {:.4}'
+        print('for party {} the most important feature was {} with a linear coefficient of {:.4}'
               .format(code_to_name[i],
                       attribute_index_to_name[max_arg_index],
                       coefficients[i][max_arg_index]))
@@ -54,6 +56,6 @@ def get_data():
 
 if __name__ == '__main__':
     X_train, y_train, X_test, y_test, df = get_data()
-    lda = get_LDA_classifier(X_train, y_train)
+    lda = get_LDA_classifier(X_train, y_train, X_test, y_test)
     max_args, max_args_abs, coefficients = get_LDA_coefficients(lda)
     plot_leading_features(max_args, max_args_abs, coefficients, df)
