@@ -66,9 +66,10 @@ def plot_leading_features(max_args, max_args_abs, coefficients, df):
         plt.close()
 
         plt.figure(figsize=(8, 6))
-        plt.subplots_adjust(left=0.4)
+        plt.subplots_adjust(left=0.2)
         plt.title('{} most important factors %'.format(code_to_name[i]))
         plt.barh(X_test.columns.values, 100 * (np.abs(coefficients[i]) / np.sum(np.abs(coefficients[i]))))
+        plt.xlabel('Importance %')
 
         # commented out saving since we have the graphics
         # plt.savefig('{}_LDA_percent.png'.format(code_to_name[i]))
