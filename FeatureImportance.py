@@ -1,12 +1,9 @@
 from collections import Counter
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import GradientBoostingClassifier
-
 from sklearn.feature_selection import mutual_info_classif, SelectKBest
-
 from Coalition import load_prepared_data, load_unprepared_data
 from DataPreparation import split_label
 
